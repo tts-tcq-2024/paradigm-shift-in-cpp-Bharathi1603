@@ -2,32 +2,37 @@
 #include <iostream>
 using namespace std;
 
+void printMessage(const std::string& message)
+{
+    std::cout << message << std::endl;
+}
+
 bool isBatteryTemperatureOk(float temperature)
 {
     if(temperature < 0 || temperature > 45)
     {
-       cout << "Temperature out of range!\n";
+        printMessage("Temperature out of range!");
         return false; 
-    }
-    
+    }    
     return true;
 }
 
 bool isBatteryChargeStateOk(float soc)
 {
-    if(soc < 20 || soc > 80) {
-        cout << "State of Charge out of range!\n";
+    if(soc < 20 || soc > 80) 
+    {
+        printMessage("State of Charge out of range!");
         return false;
-    }
-    
+    }    
     return true;
 }
 
 bool isBatteryChargeRateOk(float chargeRate)
 {
-    if(chargeRate > 0.8) {
-    cout << "Charge Rate out of range!\n";
-    return false;
+    if(chargeRate > 0.8) 
+    {
+        printMessage("Charge Rate out of range!");
+        return false;
   }
     
     return true;
