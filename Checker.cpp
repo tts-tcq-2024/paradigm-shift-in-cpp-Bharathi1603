@@ -33,7 +33,7 @@ bool isBatteryChargeRateOk(float chargeRate)
     {
         printMessage("Charge Rate out of range!");
         return false;
-  }
+   }
     
     return true;
 }
