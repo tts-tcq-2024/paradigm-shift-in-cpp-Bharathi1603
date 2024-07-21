@@ -1,49 +1,26 @@
-#include <assert.h>
 #include <iostream>
-using namespace std;
+#include "assert.h"
+#include "BatterySystem.h"
 
-void printMessage(const std::string& message)
+int main()
 {
-    std::cout << message << std::endl;
-}
-
-bool isBatteryTemperatureOk(float temperature)
-{
-    if(temperature < 0 || temperature > 45)
-    {
-        printMessage("Temperature out of range!");
-        return false; 
-    }    
-    return true;
-}
-
-bool isBatteryChargeStateOk(float soc)
-{
-    if(soc < 20 || soc > 80) 
-    {
-        printMessage("State of Charge out of range!");
-        return false;
-    }    
-    return true;
-}
-
-bool isBatteryChargeRateOk(float chargeRate)
-{
-    if(chargeRate > 0.8) 
-    {
-        printMessage("Charge Rate out of range!");
-        return false;
-   }
+    BatterySystem battery(2.26, 76.0, 0.76);
+    assert(battery.isOk() == true);
     
-    return true;
-}
+    std::cout  << std::boolalpha  << battery.isOk() <<  ": " << battery.getStateStatus() <<"\n";
+    
+    battery.setTemperature(2.25);
+    std::cout  << std::boolalpha  << battery.isOk() <<  ": " << battery.getStateStatus() <<"\n";
+    
+    battery.setTemperature(2.26);
+    battery.setChargeState(76.01);
+    std::cout  << std::boolalpha  << battery.isOk() <<  ": " << battery.getStateStatus() <<"\n";
+    
+    battery.setTemperature(2.26);
+    battery.setChargeState(76.00);
+    battery.setChargeRate(0.81);
+    assert(battery.isOk() == false);
+    std::cout  << std::boolalpha  << battery.isOk() <<  ": " << battery.getStateStatus() <<"\n";
 
-bool batteryIsOk(float temperature, float soc, float chargeRate)
-{
-    return ((isBatteryTemperatureOk(temperature)) && (isBatteryChargeStateOk(soc)) && (isBatteryChargeRateOk(chargeRate)));
-}
-
-int main() {
-  assert(batteryIsOk(25, 70, 0.7) == true);
-  assert(batteryIsOk(50, 85, 0) == false);
+    return 0;
 }
