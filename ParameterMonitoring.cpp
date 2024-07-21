@@ -1,3 +1,5 @@
+#include "ParameterMonitoring.h"
+
 ParameterMonitoring::ParameterMonitoring(std::string name, _Float32 value, _Float32 min, _Float32 max, _Float32 tolerance)
 : name(name), value(value), min(min), max(max), tolerance(tolerance)
 {    
